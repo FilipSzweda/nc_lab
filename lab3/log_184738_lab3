@@ -1,0 +1,9 @@
+lab3_1
+{Unrecognized function or variable 'generate_network'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('lab3_1', 'D:\workspaces\nc_lab\lab3\lab3_1.m', 25)" style="font-weight:bold">lab3_1</a> (<a href="matlab: opentoline('D:\workspaces\nc_lab\lab3\lab3_1.m',25,0)">line 25</a>)
+[Edges] = generate_network(10, 3, 184738)
+} 
+uiopen('C:\Users\filip\Downloads\main_lab3.m',1)
+uiopen('C:\Users\filip\Downloads\generate_network.m',1)
+uiimport('C:\Users\filip\Downloads\Dane_Filtr_Dielektryczny_lab3_MN.mat',1)
