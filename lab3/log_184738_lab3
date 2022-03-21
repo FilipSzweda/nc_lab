@@ -1,9 +1,476 @@
-lab3_1
-{Unrecognized function or variable 'generate_network'.
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('generate_network')" style="font-weight:bold">generate_network</a>
+Too many input arguments.
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('lab3_1', 'D:\workspaces\nc_lab\lab3\lab3_1.m', 25)" style="font-weight:bold">lab3_1</a> (<a href="matlab: opentoline('D:\workspaces\nc_lab\lab3\lab3_1.m',25,0)">line 25</a>)
-[Edges] = generate_network(10, 3, 184738)
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main_lab3', 'D:\workspaces\numerical-methods-lab\lab3\main_lab3.m', 14)" style="font-weight:bold">main_lab3</a> (<a href="matlab: opentoline('D:\workspaces\numerical-methods-lab\lab3\main_lab3.m',14,0)">line 14</a>)
+[Edges] = generate_network(N, density, indeks);
 } 
-uiopen('C:\Users\filip\Downloads\main_lab3.m',1)
-uiopen('C:\Users\filip\Downloads\generate_network.m',1)
-uiimport('C:\Users\filip\Downloads\Dane_Filtr_Dielektryczny_lab3_MN.mat',1)
+main_lab3
+{Unrecognized function or variable 'N'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main_lab3', 'D:\workspaces\numerical-methods-lab\lab3\main_lab3.m', 78)" style="font-weight:bold">main_lab3</a> (<a href="matlab: opentoline('D:\workspaces\numerical-methods-lab\lab3\main_lab3.m',78,0)">line 78</a>)
+plot(N, czas_Jacobi)
+} 
+clc
+clear all
+close all
+diary('log_184738_lab3')
+
+% odpowiednie fragmenty kodu można wykonać poprzez znazaczenie i wciśnięcie F9
+% komentowanie/ odkomentowywanie: ctrl+r / ctrl+t
+
+% Zadanie A
+%------------------
+N = 10;
+density = 3; % parametr decydujący o gestosci polaczen miedzy stronami
+indeks = 184738;
+[Edges] = generate_network(N, density); % [Edges] = generate_network(N, density, indeks);
+%-----------------
+
+% Zadanie B
+%------------------
+% generacja macierzy I, A, B i wektora b
+% ...
+% macierze A, B i I muszą być przechowywane w formacie sparse (rzadkim)
+d = 0.85;
+B = sparse(Edges(2,:), Edges(1,:), 1, N, N);
+I = speye(N);
+L = zeros(1,N);
+A = speye(N);
+for i = 1:N
+  L(i) = sum(B(:,i));
+  A(i,i)=A(i,i)/L(i);
+end
+b = zeros(N,1);
+b = ((b+1)-d)/N;
+
+save zadB_184738 A B I b
+uiimport('D:\workspaces\numerical-methods-lab\lab3\zadB_184738.mat',1)
+uiimport('D:\workspaces\numerical-methods-lab\lab3\zadB_184738.mat',1)
+clc
+clear all
+close all
+diary('log_184738_lab3')
+
+% odpowiednie fragmenty kodu można wykonać poprzez znazaczenie i wciśnięcie F9
+% komentowanie/ odkomentowywanie: ctrl+r / ctrl+t
+
+% Zadanie A
+%------------------
+N = 10;
+density = 3; % parametr decydujący o gestosci polaczen miedzy stronami
+indeks = 184738;
+[Edges] = generate_network(N, density); % [Edges] = generate_network(N, density, indeks);
+%-----------------
+
+% Zadanie B
+%------------------
+% generacja macierzy I, A, B i wektora b
+% ...
+% macierze A, B i I muszą być przechowywane w formacie sparse (rzadkim)
+d = 0.85;
+B = sparse(Edges(2,:), Edges(1,:), 1, N, N);
+I = speye(N);
+L = zeros(1,N);
+A = speye(N);
+for i = 1:N
+  L(i) = sum(B(:,i));
+  A(i,i)=A(i,i)/L(i);
+end
+b = zeros(N,1);
+b = ((b+1)-d)/N;
+
+save zadB_184738 A B I b
+%-----------------
+uiimport('D:\workspaces\numerical-methods-lab\lab3\zadB_184738.mat',1)
+clc
+clear all
+close all
+
+N = [500, 1000, 3000, 6000, 12000];
+d = 0.85;
+density = 10;
+
+for i = 1:5
+    B = sparse(Edges(2,:), Edges(1,:), 1, N, N);
+    I = speye(N);
+    L = zeros(1,N);
+    A = speye(N);
+    for i = 1:N
+      L(i) = sum(B(:,i));
+      A(i,i)=A(i,i)/L(i);
+    end
+    b = zeros(N,1);
+    b = ((b+1)-d)/N;
+    M = sparse(I - d * B * A);
+
+    tic
+    r = M \ b;
+    czas_Gauss(i) = toc;
+end
+{Unrecognized function or variable 'Edges'.
+} 
+% Zadanie D
+%------------------
+clc
+clear all
+close all
+
+N = [500, 1000, 3000, 6000, 12000];
+d = 0.85;
+density = 10;
+
+for i = 1:5
+    [Edges] = generate_network(N, density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N, N);
+    I = speye(N);
+    L = zeros(1,N);
+    A = speye(N);
+    for i = 1:N
+      L(i) = sum(B(:,i));
+      A(i,i)=A(i,i)/L(i);
+    end
+    b = zeros(N,1);
+    b = ((b+1)-d)/N;
+    M = sparse(I - d * B * A);
+
+    tic
+    r = M \ b;
+    czas_Gauss(i) = toc;
+end
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('randi')" style="font-weight:bold">randi</a>
+First input must be a positive scalar integer value IMAX, or two integer values [IMIN IMAX] with IMIN less than or equal to IMAX.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('generate_network', 'D:\workspaces\numerical-methods-lab\lab3\generate_network.m', 9)" style="font-weight:bold">generate_network</a> (<a href="matlab: opentoline('D:\workspaces\numerical-methods-lab\lab3\generate_network.m',9,0)">line 9</a>)
+Edges = randi(N, 2, N * density) ;
+} 
+% Zadanie D
+%------------------
+clc
+clear all
+close all
+
+N = [500, 1000, 3000, 6000, 12000];
+d = 0.85;
+density = 10;
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N, N);
+    I = speye(N);
+    L = zeros(1,N);
+    A = speye(N);
+    for i = 1:N
+      L(i) = sum(B(:,i));
+      A(i,i)=A(i,i)/L(i);
+    end
+    b = zeros(N,1);
+    b = ((b+1)-d)/N;
+    M = sparse(I - d * B * A);
+
+    tic
+    r = M \ b;
+    czas_Gauss(i) = toc;
+end
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sparse')" style="font-weight:bold">sparse</a>
+Sparse matrix sizes must be nonnegative integer scalars.
+} 
+% Zadanie D
+%------------------
+clc
+clear all
+close all
+
+N = [500, 1000, 3000, 6000, 12000];
+d = 0.85;
+density = 10;
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N(i), N(i));
+    I = speye(N(i));
+    L = zeros(1,N(i));
+    A = speye(N(i));
+    for i = 1:N(i)
+      L(i) = sum(B(:,i));
+      A(i,i)=A(i,i)/L(i);
+    end
+    b = zeros(N(i),1);
+    b = ((b+1)-d)/N(i);
+    M = sparse(I - d * B * A);
+
+    tic
+    r = M \ b;
+    czas_Gauss(i) = toc;
+end
+{Index exceeds the number of array elements. Index must not exceed 5.
+} 
+% Zadanie D
+%------------------
+clc
+clear all
+close all
+
+N = [500, 1000, 3000, 6000, 12000];
+d = 0.85;
+density = 10;
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N(i), N(i));
+    I = speye(N(i));
+    L = zeros(1,N(i));
+    A = speye(N(i));
+    for j = 1:N(i)
+      L(j) = sum(B(:,j));
+      A(j,j)=A(j,j)/L(j);
+    end
+    b = zeros(N(i),1);
+    b = ((b+1)-d)/N(i);
+    M = sparse(I - d * B * A);
+
+    tic
+    r = M \ b;
+    czas_Gauss(i) = toc;
+end
+
+figure("Name", "Czas Gaussa");
+plot(N, czas_Gauss)
+title("Czas bezpośredniego rozwiązania układu równań");
+xlabel("Liczba stron");
+ylabel("Czas [s]");
+saveas(gcf,'zadD_184738.png')
+%------------------
+% Zadanie D
+%------------------
+clc
+clear all
+close all
+
+N = [500, 1000, 3000, 6000, 12000];
+d = 0.85;
+density = 10;
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N(i), N(i));
+    I = speye(N(i));
+    L = zeros(1,N(i));
+    A = speye(N(i));
+    for j = 1:N(i)
+      L(j) = sum(B(:,j));
+      A(j,j)=A(j,j)/L(j);
+    end
+    b = zeros(N(i),1);
+    b = ((b+1)-d)/N(i);
+    M = sparse(I - d * B * A);
+
+    tic
+    r = M \ b;
+    czas_Gauss(i) = toc;
+end
+
+plot(N, czas_Gauss)
+title("Czas bezpośredniego rozwiązania układu równań w zależności od liczby stron");
+xlabel("Liczba stron");
+ylabel("Czas [s]");
+saveas(gcf,'zadD_184738.png')
+%------------------
+% Zadanie E
+%------------------
+clc
+clear all
+close all
+
+% przykład działania funkcji tril, triu, diag:
+% Z = rand(4,4)
+% tril(Z,-1) 
+% triu(Z,1) 
+% diag(diag(Z))
+N = [500, 1000, 3000, 6000, 12000];
+density = 10;
+d = 0.85;
+stop = 10^(-14);
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N(i), N(i));
+    I = speye(N(i));
+    L = zeros(1,N(i));
+    A = speye(N(i));
+    for j = 1:N(i)
+      L(j) = sum(B(:,j));
+      A(j,j)=A(j,j)/L(j);
+    end
+    b = zeros(N(i),1);
+    b = ((b+1)-d)/N(i);
+    M = sparse(I - d * B * A);
+
+    r = ones(N(i), 1);
+    D = diag(diag(M));
+    U = triu(M, 1);
+    L = tril(M, -1);
+    first = (-D)^(-1) * (L + U);
+    second = D^(-1) * b;
+
+    iterations(i) = 1;
+    res = 1;
+    k = 1;
+    tic
+    while norm(res) >= warunek
+        if N(i) == 500
+            normres(k) = norm(res);
+            k = k + 1;
+        end
+        r = first * r + second;
+        res = M * r - b;
+        iterations(i) = iterations(i) + 1;
+    end
+    czas_Jacobi(i) = toc;
+end
+{Unrecognized function or variable 'warunek'.
+} 
+% Zadanie E
+%------------------
+clc
+clear all
+close all
+
+% przykład działania funkcji tril, triu, diag:
+% Z = rand(4,4)
+% tril(Z,-1) 
+% triu(Z,1) 
+% diag(diag(Z))
+N = [500, 1000, 3000, 6000, 12000];
+density = 10;
+d = 0.85;
+stop = 10^(-14);
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N(i), N(i));
+    I = speye(N(i));
+    L = zeros(1,N(i));
+    A = speye(N(i));
+    for j = 1:N(i)
+      L(j) = sum(B(:,j));
+      A(j,j)=A(j,j)/L(j);
+    end
+    b = zeros(N(i),1);
+    b = ((b+1)-d)/N(i);
+    M = sparse(I - d * B * A);
+
+    r = ones(N(i), 1);
+    D = diag(diag(M));
+    U = triu(M, 1);
+    L = tril(M, -1);
+    first = (-D)^(-1) * (L + U);
+    second = D^(-1) * b;
+
+    iterations(i) = 1;
+    res = 1;
+    k = 1;
+    tic
+    while norm(res) >= stop
+        if N(i) == 500
+            normres(k) = norm(res);
+            k = k + 1;
+        end
+        r = first * r + second;
+        res = M * r - b;
+        iterations(i) = iterations(i) + 1;
+    end
+    czas_Jacobi(i) = toc;
+end
+
+plot(N, czas_Jacobi);
+title("Zadanie E - Czas rozwiązania metodą Jacobiego");
+xlabel("Wielkość macierzy N");
+ylabel("Czas [s]");
+saveas(gcf, "zadE_184738_1.png");
+
+plot(N, iterations);
+title("Zadanie E - Liczba iteracji dla metody Jacobiego");
+xlabel("Wielkość macierzy N");
+ylabel("Liczba iteracji");
+saveas(gcf, "zadE_184738_2.png");
+
+semilogy(normres);
+title("Zadanie E - Wykres normy residuum Jacobi");
+xlabel("Ilość iteracji");
+ylabel("Norma residuum")
+saveas(gcf, "zadE_184738_3.png");
+%------------------
+% Zadanie E
+%------------------
+clc
+clear all
+close all
+
+% przykład działania funkcji tril, triu, diag:
+% Z = rand(4,4)
+% tril(Z,-1) 
+% triu(Z,1) 
+% diag(diag(Z))
+N = [500, 1000, 3000, 6000, 12000];
+density = 10;
+d = 0.85;
+stop = 10^(-14);
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N(i), N(i));
+    I = speye(N(i));
+    L = zeros(1,N(i));
+    A = speye(N(i));
+    for j = 1:N(i)
+      L(j) = sum(B(:,j));
+      A(j,j)=A(j,j)/L(j);
+    end
+    b = zeros(N(i),1);
+    b = ((b+1)-d)/N(i);
+    M = sparse(I - d * B * A);
+
+    r = ones(N(i), 1);
+    D = diag(diag(M));
+    U = triu(M, 1);
+    L = tril(M, -1);
+    first = (-D)^(-1) * (L + U);
+    second = D^(-1) * b;
+
+    iterations(i) = 1;
+    res = 1;
+    k = 1;
+    tic
+    while norm(res) >= stop
+        if N(i) == 500
+            normres(k) = norm(res);
+            k = k + 1;
+        end
+        r = first * r + second;
+        res = M * r - b;
+        iterations(i) = iterations(i) + 1;
+    end
+    czas_Jacobi(i) = toc;
+end
+
+plot(N, czas_Jacobi);
+title("Czas analizy w zależności od liczby stron (metoda Jacobiego)");
+xlabel("Liczba stron");
+ylabel("Czas [s]");
+saveas(gcf, "zadE_184738_1.png");
+
+plot(N, iterations);
+title("Liczba iteracji w zależności od liczby stron (metoda Jacobiego)");
+xlabel("Liczba stron");
+ylabel("Liczba iteracji");
+saveas(gcf, "zadE_184738_2.png");
+
+semilogy(normres);
+title("Norma residuum w dla kolejnych iteracji (metoda Jacobiego)");
+xlabel("Iteracje");
+ylabel("Norma residuum")
+saveas(gcf, "zadE_184738_3.png");
+%------------------
+main_lab3
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main_lab3')" style="font-weight:bold">main_lab3</a>
+} 
