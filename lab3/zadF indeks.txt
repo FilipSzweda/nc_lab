@@ -1,0 +1,6 @@
+Szybkość metod od najszybszej do najwolniejszej:
+1. Metoda Jacobiego
+2. Metoda Gaussa-Seidla
+3. Metoda bezpośredniego rozwiązania układu równań
+
+Żeby zbiec się do prawidłowego wyniku najmniej iteracji potrzebuje metoda Jacobiego.

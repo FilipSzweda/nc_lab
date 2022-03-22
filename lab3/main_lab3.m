@@ -156,4 +156,82 @@ title("Norma residuum w dla kolejnych iteracji (metoda Jacobiego)");
 xlabel("Iteracje");
 ylabel("Norma residuum")
 saveas(gcf, "zadE_184738_3.png");
+
+%------------------
+% Zadanie F
+%------------------
+clc
+clear all
+close all
+
+N = [500, 1000, 3000, 6000, 12000];
+density = 10;
+d = 0.85;
+stop = 10^(-14);
+
+for i = 1:5
+    [Edges] = generate_network(N(i), density);
+    B = sparse(Edges(2,:), Edges(1,:), 1, N(i), N(i));
+    I = speye(N(i));
+    L = zeros(1,N(i));
+    A = speye(N(i));
+    for j = 1:N(i)
+      L(j) = sum(B(:,j));
+      A(j,j)=A(j,j)/L(j);
+    end
+    b = zeros(N(i),1);
+    b = ((b+1)-d)/N(i);
+    M = sparse(I - d * B * A);
+
+    r = ones(N(i), 1);
+    D = diag(diag(M));
+    U = triu(M, 1);
+    L = tril(M, -1);
+    temp = speye(N(i));
+    first = -temp / (D + L) * U;
+    second = temp / (D + L) * b;
+
+    iterations(i) = 1;
+    res = 1;
+    k = 1;
+    tic
+    while norm(res) >= stop
+        if N(i) == 500
+            normres(k) = norm(res);
+            k = k + 1;
+        end
+        r = first * r + second;
+        res = M * r - b;
+        iterations(i) = iterations(i) + 1;
+    end
+    czas_GaussaSeidla(i) = toc;
+end
+
+plot(N, czas_GaussaSeidla);
+title("Czas analizy w zale¿noœci od liczby stron (metoda Gaussa-Seidla)");
+xlabel("Liczba stron");
+ylabel("Czas [s]");
+saveas(gcf, "zadF_184738_1.png");
+
+plot(N, iterations);
+title("Liczba iteracji w zale¿noœci od liczby stron (metoda Gaussa-Seidla)");
+xlabel("Liczba stron");
+ylabel("Liczba iteracji");
+saveas(gcf, "zadF_184738_2.png");
+
+semilogy(normres);
+title("Norma residuum w dla kolejnych iteracji (metoda Gaussa-Seidla)");
+xlabel("Iteracje");
+ylabel("Norma residuum")
+saveas(gcf, "zadF_184738_3.png");
+%------------------
+
+%------------------
+% Zadanie G
+%------------------
+clc
+clear all
+close all
+
+load Dane_Filtr_Dielektryczny_lab3_MN.mat
 %------------------
