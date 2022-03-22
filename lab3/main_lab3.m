@@ -34,9 +34,6 @@ b = ((b+1)-d)/N;
 save zadB_184738 A B I b
 %-----------------
 
-
-
-%-----------------
 % Zadanie C
 %-----------------
 % rozwiazanie ukladu rownan
@@ -45,8 +42,7 @@ M = sparse(I - d * B * A);
 r = M \ b;
 
 save zadC_184738 r
-
-
+%-----------------
 
 % Zadanie D
 %------------------
@@ -78,13 +74,11 @@ for i = 1:5
 end
 
 plot(N, czas_Gauss)
-title("Czas bezpoœredniego rozwi¹zania uk³adu równañ w zale¿noœci od liczby stron");
-xlabel("Liczba stron");
+title("Czas bezpoœredniego rozwi¹zania uk³adu równañ");
+xlabel("Rozmiar macierzy N");
 ylabel("Czas [s]");
 saveas(gcf,'zadD_184738.png')
 %------------------
-
-
 
 % Zadanie E
 %------------------
@@ -119,22 +113,22 @@ for i = 1:5
     L = tril(M, -1);
     U = triu(M, 1);
     D = diag(diag(M));
+    
+    termOne = (-D)^(-1) * (L + U);
+    termTwo = D^(-1) * b;
+
+    iterations(i) = 0;
 
     r = ones(N(i), 1);
-
-    first = (-D)^(-1) * (L + U);
-    second = D^(-1) * b;
-
-    iterations(i) = 1;
-    res = 1;
+    res = M * r - b;
     k = 1;
     tic
-    while norm(res) >= stop
-        if N(i) == 500
+    while norm(res) > stop
+        if N(i) == 1000
             normres(k) = norm(res);
             k = k + 1;
         end
-        r = first * r + second;
+        r = termOne * r + termTwo;
         res = M * r - b;
         iterations(i) = iterations(i) + 1;
     end
@@ -142,24 +136,24 @@ for i = 1:5
 end
 
 plot(N, czas_Jacobi);
-title("Czas analizy w zale¿noœci od liczby stron (metoda Jacobiego)");
-xlabel("Liczba stron");
+title("Czas rozwi¹zania równania macierzowego (metoda Jacobiego)");
+xlabel("Rozmiar macierzy N");
 ylabel("Czas [s]");
 saveas(gcf, "zadE_184738_1.png");
 
 plot(N, iterations);
-title("Liczba iteracji w zale¿noœci od liczby stron (metoda Jacobiego)");
-xlabel("Liczba stron");
+title("Liczba iteracji (metoda Jacobiego)");
+xlabel("Rozmiar macierzy N");
 ylabel("Liczba iteracji");
 saveas(gcf, "zadE_184738_2.png");
 
 semilogy(normres);
-title("Norma residuum w dla kolejnych iteracji (metoda Jacobiego)");
+title("Norma residuum (dla N=1000, metoda Jacobiego)");
 xlabel("Iteracje");
 ylabel("Norma residuum")
 saveas(gcf, "zadE_184738_3.png");
-
 %------------------
+
 % Zadanie F
 %------------------
 clc
@@ -191,20 +185,19 @@ for i = 1:5
 
     r = ones(N(i), 1);
 
-    temp = speye(N(i));
-    first = -temp / (D + L) * U;
-    second = temp / (D + L) * b;
+    termOne = -I / (D + L) * U;
+    termTwo = I / (D + L) * b;
 
     iterations(i) = 1;
     res = 1;
     k = 1;
     tic
-    while norm(res) >= stop
-        if N(i) == 500
+    while norm(res) > stop
+        if N(i) == 1000
             normres(k) = norm(res);
             k = k + 1;
         end
-        r = first * r + second;
+        r = termOne * r + termTwo;
         res = M * r - b;
         iterations(i) = iterations(i) + 1;
     end
@@ -212,25 +205,24 @@ for i = 1:5
 end
 
 plot(N, czas_GaussaSeidla);
-title("Czas analizy w zale¿noœci od liczby stron (metoda Gaussa-Seidla)");
-xlabel("Liczba stron");
+title("Czas rozwi¹zania równania macierzowego (metoda Gaussa-Seidla)");
+xlabel("Rozmiar macierzy N");
 ylabel("Czas [s]");
 saveas(gcf, "zadF_184738_1.png");
 
 plot(N, iterations);
-title("Liczba iteracji w zale¿noœci od liczby stron (metoda Gaussa-Seidla)");
-xlabel("Liczba stron");
+title("Liczba iteracji (metoda Gaussa-Seidla)");
+xlabel("Rozmiar macierzy N");
 ylabel("Liczba iteracji");
 saveas(gcf, "zadF_184738_2.png");
 
 semilogy(normres);
-title("Norma residuum w dla kolejnych iteracji (metoda Gaussa-Seidla)");
+title("Norma residuum (dla N=1000, metoda Gaussa-Seidla)");
 xlabel("Iteracje");
 ylabel("Norma residuum")
 saveas(gcf, "zadF_184738_3.png");
 %------------------
 
-%------------------
 % Zadanie G
 %------------------
 clc
