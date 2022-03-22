@@ -116,10 +116,12 @@ for i = 1:5
     b = ((b+1)-d)/N(i);
     M = sparse(I - d * B * A);
 
-    r = ones(N(i), 1);
-    D = diag(diag(M));
-    U = triu(M, 1);
     L = tril(M, -1);
+    U = triu(M, 1);
+    D = diag(diag(M));
+
+    r = ones(N(i), 1);
+
     first = (-D)^(-1) * (L + U);
     second = D^(-1) * b;
 
@@ -156,8 +158,8 @@ title("Norma residuum w dla kolejnych iteracji (metoda Jacobiego)");
 xlabel("Iteracje");
 ylabel("Norma residuum")
 saveas(gcf, "zadE_184738_3.png");
-%------------------
 
+%------------------
 % Zadanie F
 %------------------
 clc
@@ -184,11 +186,13 @@ for i = 1:5
     M = sparse(I - d * B * A);
 
     r = ones(N(i), 1);
-    D = diag(diag(M));
-    U = triu(M, 1);
     L = tril(M, -1);
-    first = -U / (D + L);
-    second = b / (D + L);
+    U = triu(M, 1);
+    D = diag(diag(M));
+
+    temp = speye(N(i));
+    first = -temp / (D + L) * U;
+    second = temp / (D + L) * b;
 
     iterations(i) = 1;
     res = 1;
@@ -203,24 +207,34 @@ for i = 1:5
         res = M * r - b;
         iterations(i) = iterations(i) + 1;
     end
-    czas_Gaussa_Seidla(i) = toc;
+    czas_GaussaSeidla(i) = toc;
 end
 
-plot(N, czas_Jacobi);
-title("Czas analizy w zależności od liczby stron (metoda Jacobiego)");
+plot(N, czas_GaussaSeidla);
+title("Czas analizy w zależności od liczby stron (metoda Gaussa-Seidla)");
 xlabel("Liczba stron");
 ylabel("Czas [s]");
-saveas(gcf, "zadE_184738_1.png");
+saveas(gcf, "zadF_184738_1.png");
 
 plot(N, iterations);
-title("Liczba iteracji w zależności od liczby stron (metoda Jacobiego)");
+title("Liczba iteracji w zależności od liczby stron (metoda Gaussa-Seidla)");
 xlabel("Liczba stron");
 ylabel("Liczba iteracji");
-saveas(gcf, "zadE_184738_2.png");
+saveas(gcf, "zadF_184738_2.png");
 
 semilogy(normres);
-title("Norma residuum w dla kolejnych iteracji (metoda Jacobiego)");
+title("Norma residuum w dla kolejnych iteracji (metoda Gaussa-Seidla)");
 xlabel("Iteracje");
 ylabel("Norma residuum")
-saveas(gcf, "zadE_184738_3.png");
+saveas(gcf, "zadF_184738_3.png");
+%------------------
+
+%------------------
+% Zadanie G
+%------------------
+clc
+clear all
+close all
+
+load Dane_Filtr_Dielektryczny_lab3_MN.mat
 %------------------

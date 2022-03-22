@@ -116,10 +116,12 @@ for i = 1:5
     b = ((b+1)-d)/N(i);
     M = sparse(I - d * B * A);
 
-    r = ones(N(i), 1);
-    D = diag(diag(M));
-    U = triu(M, 1);
     L = tril(M, -1);
+    U = triu(M, 1);
+    D = diag(diag(M));
+
+    r = ones(N(i), 1);
+
     first = (-D)^(-1) * (L + U);
     second = D^(-1) * b;
 
@@ -183,10 +185,12 @@ for i = 1:5
     b = ((b+1)-d)/N(i);
     M = sparse(I - d * B * A);
 
-    r = ones(N(i), 1);
-    D = diag(diag(M));
-    U = triu(M, 1);
     L = tril(M, -1);
+    U = triu(M, 1);
+    D = diag(diag(M));
+
+    r = ones(N(i), 1);
+
     temp = speye(N(i));
     first = -temp / (D + L) * U;
     second = temp / (D + L) * b;
