@@ -185,8 +185,8 @@ for i = 1:5
 
     r = ones(N(i), 1);
 
-    termOne = -I / (D + L) * U;
-    termTwo = I / (D + L) * b;
+    termOne = -(D + L);
+    termTwo = (D + L) \ b;
 
     iterations(i) = 1;
     res = 1;
@@ -197,7 +197,7 @@ for i = 1:5
             normres(k) = norm(res);
             k = k + 1;
         end
-        r = termOne * r + termTwo;
+        r = termOne \ (U*r) + termTwo;
         res = M * r - b;
         iterations(i) = iterations(i) + 1;
     end
