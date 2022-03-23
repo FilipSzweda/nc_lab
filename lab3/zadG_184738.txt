@@ -1,0 +1,1 @@
+Metody bezpośredniego rozwiązania i Jacobiego zbiegają się, metoda Gaussa-Siedla od pewnego momentu zaczyna zwracać NaN.
