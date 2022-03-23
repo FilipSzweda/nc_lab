@@ -1,0 +1,1 @@
+Metody iteracyjne nie zbiegają się, metoda Gaussa-Siedla z czasem zaczyna zwracać NaN.

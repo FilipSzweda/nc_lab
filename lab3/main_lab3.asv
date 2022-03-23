@@ -2,13 +2,13 @@ clc
 clear all
 close all
 
-% odpowiednie fragmenty kodu mo¿na wykonaæ poprzez znazaczenie i wciœniêcie F9
+% odpowiednie fragmenty kodu moÅ¼na wykonaÄ‡ poprzez znazaczenie i wciÅ›niÄ™cie F9
 % komentowanie/ odkomentowywanie: ctrl+r / ctrl+t
 
 % Zadanie A
 %------------------
 N = 10;
-density = 3; % parametr decyduj¹cy o gestosci polaczen miedzy stronami
+density = 3; % parametr decydujÄ…cy o gestosci polaczen miedzy stronami
 indeks = 184738;
 [Edges] = generate_network(N, density); % [Edges] = generate_network(N, density, indeks);
 %-----------------
@@ -17,7 +17,7 @@ indeks = 184738;
 %------------------
 % generacja macierzy I, A, B i wektora b
 % ...
-% macierze A, B i I musz¹ byæ przechowywane w formacie sparse (rzadkim)
+% macierze A, B i I muszÄ… byÄ‡ przechowywane w formacie sparse (rzadkim)
 d = 0.85;
 B = sparse(Edges(2,:), Edges(1,:), 1, N, N);
 I = speye(N);
@@ -73,7 +73,7 @@ for i = 1:5
 end
 
 plot(N, czas_Gauss)
-title("Czas bezpoœredniego rozwi¹zania uk³adu równañ");
+title("Czas bezpoÅ›redniego rozwiÄ…zania ukÅ‚adu rÃ³wnaÅ„");
 xlabel("Rozmiar macierzy N");
 ylabel("Czas [s]");
 saveas(gcf,'zadD_184738.png')
@@ -85,7 +85,7 @@ clc
 clear all
 close all
 
-% przyk³ad dzia³ania funkcji tril, triu, diag:
+% przykÅ‚ad dziaÅ‚ania funkcji tril, triu, diag:
 % Z = rand(4,4)
 % tril(Z,-1) 
 % triu(Z,1) 
@@ -113,8 +113,8 @@ for i = 1:5
     U = triu(M, 1);
     D = diag(diag(M));
     
-    termOne = -D \ (L + U);
-    termTwo = D \ b;
+    termOne = (-D)^(-1) * (L + U);
+    termTwo = D^(-1) * b;
 
     iterations(i) = 0;
 
@@ -135,7 +135,7 @@ for i = 1:5
 end
 
 plot(N, czas_Jacobi);
-title("Czas rozwi¹zania równania macierzowego (metoda Jacobiego)");
+title("Czas rozwiÄ…zania rÃ³wnania macierzowego (metoda Jacobiego)");
 xlabel("Rozmiar macierzy N");
 ylabel("Czas [s]");
 saveas(gcf, "zadE_184738_1.png");
@@ -196,7 +196,7 @@ for i = 1:5
             normres(k) = norm(res);
             k = k + 1;
         end
-        r = termOne \ (U * r) + termTwo;
+        r = termOne \ (U*r) + termTwo;
         res = M * r - b;
         iterations(i) = iterations(i) + 1;
     end
@@ -204,7 +204,7 @@ for i = 1:5
 end
 
 plot(N, czas_GaussaSeidla);
-title("Czas rozwi¹zania równania macierzowego (metoda Gaussa-Seidla)");
+title("Czas rozwiÄ…zania rÃ³wnania macierzowego (metoda Gaussa-Seidla)");
 xlabel("Rozmiar macierzy N");
 ylabel("Czas [s]");
 saveas(gcf, "zadF_184738_1.png");
@@ -235,30 +235,29 @@ rDir = M \ b;
 L = tril(M, -1);
 U = triu(M, 1);
 D = diag(diag(M));
+r = ones(20000, 1);
 stop = 10^(-14);
 
-rJacobi = ones(20000, 1);
-termOneJacobi = -D \ (L + U);
-termTwoJacobi = D \ b;
-resJacobi = M * rJacobi - b;
-while norm(resJacobi) > stop
-    if isnan(norm(resJacobi))
+termOne = (-D \ (L + U);
+termTwo = D \ b;
+res = M * r - b;
+while norm(res) > stop
+    if isnan(norm(res))
         break;
     end
-    rJacobi = termOneJacobi * rJacobi + termTwoJacobi;
-    resJacobi = M * rJacobi - b;
+    rJacobi = termOne * r + termTwo;
+    res = M * rJacobi - b;
 end
 
-rGaussSeidl = ones(20000, 1);
-termOneGaussSeidl = -(D + L);
-termTwoGaussSeidl = (D + L) \ b;
-resGaussSeidl = 1;
-while norm(resGaussSeidl) > stop
-    if isnan(norm(resGaussSeidl))
+termOne = -(D + L);
+termTwo = (D + L) \ b;
+res = 1;
+while norm(res) > stop
+    if isnan(norm(res))
         break;
     end
-    rGaussSeidl = termOneGaussSeidl \ (U * rGaussSeidl) + termTwoGaussSeidl;
-    resGaussSeidl = M * rGaussSeidl - b;
+    rGaussSeidl = termOne \ (U*r) + termTwo;
+    res = M * rGaussSeidl - b;
 end
 
 %------------------
