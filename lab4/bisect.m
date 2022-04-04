@@ -11,7 +11,7 @@ function [xvect,xdif,fx,it_cnt]=bisect(a,b,eps,fun)
         xvect(i) = x;
         fx(i) = f_x;
         if i > 1
-            xdif(i-1) = abs(xvect(2)-xvect(1));
+            xdif(i-1) = abs(xvect(i)-xvect(i-1));
         end
         
         if abs(f_x) < eps || abs(a-b) < eps
