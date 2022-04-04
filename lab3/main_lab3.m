@@ -1,6 +1,7 @@
 clc
 clear all
 close all
+diary('log_184738_lab3')
 
 % odpowiednie fragmenty kodu mo¿na wykonaæ poprzez znazaczenie i wciœniêcie F9
 % komentowanie/ odkomentowywanie: ctrl+r / ctrl+t
