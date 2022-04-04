@@ -1,0 +1,24 @@
+function [xvect,xdif,fx,it_cnt]=bisect(a,b,eps,fun)
+xvect = [];
+xdif = [];
+fx = [];
+it_cnt = 0;
+
+for i = 1:1000
+    x = (a + b)/2;
+    f_x = feval(fun,x);
+
+    xvect(k) = x;
+    fx(k) = f_x;
+    if k > 1
+        xdif(k-1) = abs(xvect(2)-xvect(1));
+    end
+    if norm(f_x) < eps || abs(a-b) < eps
+        it_cnt = k;
+      return;
+
+end
+
+
+end
+

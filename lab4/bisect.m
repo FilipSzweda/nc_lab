@@ -1,11 +1,27 @@
 function [xvect,xdif,fx,it_cnt]=bisect(a,b,eps,fun)
-
-x = (a + b)/2;
-for i = 1:1000
-    % bisection algorithm 
-    feval(fun,x); % use feval to obtain the value of the function in 'x' 
-end
-
-
+    xvect = [];
+    xdif = [];
+    fx = [];
+    it_cnt = 0;
+    
+    for i = 1:1000
+        x = (a + b)/2;
+        f_x = feval(fun,x);
+        
+        xvect(i) = x;
+        fx(i) = f_x;
+        if i > 1
+            xdif(i-1) = abs(xvect(2)-xvect(1));
+        end
+        
+        if abs(f_x) < eps || abs(a-b) < eps
+            it_cnt = i;
+            return;
+        elseif feval(fun, a)*f_x < 0
+            b = x;
+        else
+            a = x;
+        end
+    end
 end
 
