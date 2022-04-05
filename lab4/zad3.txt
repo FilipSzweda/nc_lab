@@ -1,0 +1,7 @@
+Funkcja fzero szukała miejsca zerowego metodami bisekcji i interpolacji.
+
+Dla przybliżenia początkowego pierwiastka równego 6 miejsce zerowe zostało znalezione po 7 interacjach i wynosiło 6.2832.
+
+Dla przybliżenia początkowego pierwiastka równego 4.5 miejsce zerowe nie zostało znalezione.
+Mimo kolejnych iteracji i zmniejszających się przedziałów, wartość bezwzględna f(x) rosła.
+Przyczyną są kończe przediałów poszukiwań ustalone po obu stronach asymptoty pionowej f(x) (tangens).
