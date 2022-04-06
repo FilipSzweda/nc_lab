@@ -5,4 +5,5 @@ function [value] = compute_time( t )
     u = 2000;
     v = u*log(m_zero/(m_zero-q*t))-g*t;
     value = v - 750;
+    return;
 end
