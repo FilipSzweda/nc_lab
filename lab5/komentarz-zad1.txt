@@ -1,0 +1,3 @@
+Wzrost liczby punktów K w interpolacji wielomianowej i trygonometrycznej obserwowalnie zwiększa dokładność wyznaczanych wartości promieniowania.
+W interpolacji wielomianowej wystepują anomalie przy krańcach przedziałów - zachodzi efekt Rungego.
+Interpolacja trygonometryczna zdaje się więc dawać lepsze wyniki.
