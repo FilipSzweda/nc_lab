@@ -1,0 +1,1 @@
+Z wykresów można odczytać, że funkcje obu interpolacji są zbieżne. Dla interpolacji wielomianowej występują jednak bardzo skrajne anomalia wartości.
