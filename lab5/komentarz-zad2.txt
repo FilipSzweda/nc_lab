@@ -1,1 +1,2 @@
-Z wykresów można odczytać, że funkcje obu interpolacji są zbieżne. Dla interpolacji wielomianowej występują jednak bardzo skrajne anomalia wartości.
+Z wykresów można odczytać, że funkcja interpolacji trygonometrycznej jest zbieżna, a funkcja interpolacji wielomianowej nie.
+Dla interpolacji wielomianowej występują bardzo skrajne anomalia wartości.

@@ -2,10 +2,10 @@ K = [5, 15, 25, 33];
 
 [XX,YY] = meshgrid(linspace(0,100,101),linspace(0,100,101));
 for i = K
-    [x,y,f] = lazik(i);
+    [x,y,f,xp,yp] = lazik(i);
 
     subplot(2,2,1);
-    plot(x,y,'-o','linewidth',3);
+    plot(xp,yp,'-o','linewidth',1.25, 'markersize', 4);
     title(strcat("Droga ruchu łazika dla K =", num2str(i)));
     ylabel("y[m]");
     xlabel("x[m]");
@@ -22,6 +22,7 @@ for i = K
 
     subplot(2,2,3);
     surf(XX,YY,FF);
+    shading flat;
     title(strcat("Interpolacja wielomianowa dla K =", num2str(i)));
     ylabel("y[m]");
     xlabel("x[m]");
@@ -32,7 +33,7 @@ for i = K
 
     subplot(2,2,4);
     surf(XX,YY,FF);
-    surf(XX,YY,FF);
+    shading flat;
     title(strcat("Interpolacja trygonometryczna dla K =", num2str(i)));
     ylabel("y[m]");
     xlabel("x[m]");
