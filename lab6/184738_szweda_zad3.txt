@@ -1,0 +1,2 @@
+Nie ma sensu wyznaczać krzywej przechodzącej przez węzły, ponieważ pomiary położenia drona obarczone są błędem.
+Oznacza to, że lepiej jest skorzystać z aproksymacji.
