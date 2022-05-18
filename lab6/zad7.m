@@ -71,3 +71,4 @@ xlabel("x");
 ylabel("y");
 zlabel("z");
 hold off
+saveas(gcf, strcat("184738_szweda_zad7_c.png"));
