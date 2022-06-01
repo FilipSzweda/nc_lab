@@ -1,0 +1,4 @@
+Metoda prostokątów okazała się najszybsza.
+Metoda trapezów mimo dłuższego czasu wykonania, daje dokładniejsze wyniki niż metoda prostokątów.
+Metoda Simpsona wykonywała się najdłużej, ale dała najbardziej dokładne wyniki.
+Metoda Monte Carlo okazała się szybka, dała najmniej dokładne wyniki.

@@ -133,7 +133,7 @@ for i = 1:N
     x_i_1 = a + i * dx;
     res_s = res_s + fun(x_i) + 4 * fun((x_i_1 + x_i) / 2) + fun(x_i_1);
 end
-res_s = res_s * dx/6;
+res_s = res_s * dx / 6;
 time_s = toc;
 
 % Metoda Monte Carlo
@@ -153,12 +153,10 @@ res_m = (N_1 / N) * abs(a - b) * abs(f_min - f_max);
 time_m = toc;
 
 figure();
-x = [1, 2, 3, 4];
 y = [time_p; time_t; time_s; time_m];
-bar(x, y, 0.5, 'FaceColor', [0, 0.5, 1]);
-labels = ['prostokątów'; 'trapezów'; 'Simpsona'; 'Monte Carlo'];
-set(gca, 'XTickLabel', labels);  
-title('Czas wykonania poszczególnych metod dla N = 10^7');
-xlabel('Metoda');
+bar(1:4, y);
+set(gca, 'xticklabel', ["Metoda prostokątów", "Metoda trapezów", "Metoda Simpsona", "Metoda Monte Carlo"]);
+title('Czas wykonania poszczególnych metod (N = 10^7)');
+xlabel('Badana metoda');
 ylabel('Czas [s]');
-saveas(gcf, "czas_wykonania.png");
+saveas(gcf, "czas_wykonania_metod.png");
